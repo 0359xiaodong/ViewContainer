@@ -1,7 +1,7 @@
 ViewContainer
 =============
 
-Like android.Widget.ViewSwitcher as easy to use
+Network request--> loading--> showView
 
 网络请求--> 转菊花--> 根据response显示不同的view
 
