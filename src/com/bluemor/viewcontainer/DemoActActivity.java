@@ -9,7 +9,7 @@ public class DemoActActivity extends Activity {
 
     private ViewContainer vc;
 
-    private final String KEY_CUSTOMER1 = "customer1";
+    private final String KEY_CUSTOM = "custom";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +24,7 @@ public class DemoActActivity extends Activity {
         inflate.findViewById(R.id.bt).setOnClickListener(listener);
 
         vc.setDefaultClickListener(listener)
-                .addView(KEY_CUSTOMER1, inflate)
+                .addView(KEY_CUSTOM, inflate)
                 .build(this);
 
         findViewById(R.id.bt).setOnClickListener(listener);
@@ -75,7 +75,7 @@ public class DemoActActivity extends Activity {
                 vc.showNonet();
                 break;
             case 4:
-                vc.showView(KEY_CUSTOMER1);
+                vc.showView(KEY_CUSTOM);
                 break;
         }
     }

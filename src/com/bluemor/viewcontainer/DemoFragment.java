@@ -14,7 +14,7 @@ public class DemoFragment extends Fragment {
 
     private ViewContainer vc;
 
-    private final String KEY_CUSTOMER1 = "customer1";
+    private final String KEY_CUSTOM = "custom";
 
     public static DemoFragment newInstance() {
         DemoFragment fragment = new DemoFragment();
@@ -36,7 +36,7 @@ public class DemoFragment extends Fragment {
         inflate.findViewById(R.id.bt).setOnClickListener(listener);
 
         View view = vc.setDefaultClickListener(listener)
-                .addView(KEY_CUSTOMER1, inflate)
+                .addView(KEY_CUSTOM, inflate)
                 .build(this);
 
         view.findViewById(R.id.bt).setOnClickListener(listener);
@@ -88,7 +88,7 @@ public class DemoFragment extends Fragment {
                 vc.showNonet();
                 break;
             case 4:
-                vc.showView(KEY_CUSTOMER1);
+                vc.showView(KEY_CUSTOM);
                 break;
         }
     }
