@@ -5,14 +5,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 
-import java.util.Random;
-
 public class DemoActActivity extends Activity {
 
     private ViewContainer vc;
 
     private final String KEY_CUSTOMER1 = "customer1";
-    private final String KEY_CUSTOMER2 = "customer2";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,16 +20,14 @@ public class DemoActActivity extends Activity {
     private void init() {
         vc = new ViewContainer(this, R.layout.activity_act);
 
-        View inflate1 = View.inflate(this, R.layout.container_customer1, null);
-        inflate1.findViewById(R.id.bt).setOnClickListener(listener);
-
-        View inflate2 = View.inflate(this, R.layout.container_customer2, null);
-        inflate2.findViewById(R.id.bt).setOnClickListener(listener);
+        View inflate = View.inflate(this, R.layout.container_custom, null);
+        inflate.findViewById(R.id.bt).setOnClickListener(listener);
 
         vc.setDefaultClickListener(listener)
-                .addView(KEY_CUSTOMER1, inflate1)
-                .addView(KEY_CUSTOMER2, inflate2)
+                .addView(KEY_CUSTOMER1, inflate)
                 .build(this);
+
+        findViewById(R.id.bt).setOnClickListener(listener);
     }
 
     private RefreshClickListener listener = new RefreshClickListener();
@@ -44,9 +39,7 @@ public class DemoActActivity extends Activity {
         }
     }
 
-    public void load(View v) {
-        loadData();
-    }
+    private int i;
 
     private void loadData() {
         vc.showLoading();
@@ -59,15 +52,16 @@ public class DemoActActivity extends Activity {
                 }
                 runOnUiThread(new Runnable() {
                     public void run() {
-                        showRandomView(new Random().nextInt(6));
+                        i++;
+                        showDemoView();
                     }
                 });
             };
         }.start();
     }
 
-    private void showRandomView(int nextInt) {
-        switch (nextInt) {
+    private void showDemoView() {
+        switch (i % 5) {
             case 0:
                 vc.showContent();
                 break;
@@ -82,9 +76,6 @@ public class DemoActActivity extends Activity {
                 break;
             case 4:
                 vc.showView(KEY_CUSTOMER1);
-                break;
-            case 5:
-                vc.showView(KEY_CUSTOMER2);
                 break;
         }
     }

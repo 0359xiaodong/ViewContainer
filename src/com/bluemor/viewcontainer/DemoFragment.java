@@ -7,20 +7,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.Button;
-
-import java.util.Random;
 
 public class DemoFragment extends Fragment {
 
     private Activity activity;
 
-    private Button bt;
-
     private ViewContainer vc;
 
     private final String KEY_CUSTOMER1 = "customer1";
-    private final String KEY_CUSTOMER2 = "customer2";
 
     public static DemoFragment newInstance() {
         DemoFragment fragment = new DemoFragment();
@@ -36,26 +30,16 @@ public class DemoFragment extends Fragment {
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
             final Bundle savedInstanceState) {
-        vc = new ViewContainer(getActivity(), R.layout.fragment);
+        vc = new ViewContainer(getActivity(), R.layout.activity_act);
 
-        View inflate1 = View.inflate(getActivity(), R.layout.container_customer1, null);
-        inflate1.findViewById(R.id.bt).setOnClickListener(listener);
-
-        View inflate2 = View.inflate(getActivity(), R.layout.container_customer2, null);
-        inflate2.findViewById(R.id.bt).setOnClickListener(listener);
+        View inflate = View.inflate(getActivity(), R.layout.container_custom, null);
+        inflate.findViewById(R.id.bt).setOnClickListener(listener);
 
         View view = vc.setDefaultClickListener(listener)
-                .addView(KEY_CUSTOMER1, inflate1)
-                .addView(KEY_CUSTOMER2, inflate2)
+                .addView(KEY_CUSTOMER1, inflate)
                 .build(this);
 
-        bt = (Button) view.findViewById(R.id.bt);
-        bt.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                loadData();
-            }
-        });
+        view.findViewById(R.id.bt).setOnClickListener(listener);
         return view;
     }
 
@@ -68,6 +52,8 @@ public class DemoFragment extends Fragment {
         }
     }
 
+    private int i;
+
     private void loadData() {
         vc.showLoading();
         new Thread() {
@@ -79,15 +65,16 @@ public class DemoFragment extends Fragment {
                 }
                 activity.runOnUiThread(new Runnable() {
                     public void run() {
-                        showRandomView(new Random().nextInt(6));
+                        i++;
+                        showDemoView();
                     }
                 });
             };
         }.start();
     }
 
-    private void showRandomView(int nextInt) {
-        switch (nextInt) {
+    private void showDemoView() {
+        switch (i % 5) {
             case 0:
                 vc.showContent();
                 break;
@@ -102,9 +89,6 @@ public class DemoFragment extends Fragment {
                 break;
             case 4:
                 vc.showView(KEY_CUSTOMER1);
-                break;
-            case 5:
-                vc.showView(KEY_CUSTOMER2);
                 break;
         }
     }
