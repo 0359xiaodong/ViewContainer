@@ -1,12 +1,7 @@
 ViewContainer
 =============
 
-Network request--> loading--> showView
+1.Network request  --> showLoadingView
+2.Network response --> showView
 
-网络请求--> 转菊花--> 根据response显示不同的view
-
-默认有show ErrorView EmptyView NoNetworkView LoadingView
-
-可以addView然后通过key显示自定义的view
-
-适用activity和fragment
+views: ErrorView,EmptyView,NoNetworkView,LoadingView,your custom view
